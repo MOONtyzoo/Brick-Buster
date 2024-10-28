@@ -1,27 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private Transform paddleTransform;
+    [SerializeField] private ParticleSystem particlePrefab;
+
     private Rigidbody physics;
 
     private bool isInPlay;
+    private float startSpeed = 300;
 
     private void Awake() {
         physics = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate() {
-        if (isOkToLaunch()) {
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Brick") {
+            Brick brick = collision.gameObject.GetComponent<Brick>();
+            brick.Bust();
+        }
+    }
+
+    private void Update() {
+        if (isOkToLaunch() && Input.GetButtonDown("Fire1")) {
             Launch();
         }
     }
 
+    public void Disable() {
+        gameObject.SetActive(false);
+    }
+
+    public void Reset() {
+        gameObject.SetActive(true);
+        LoadBallOntoPaddle();
+    }
+
     private bool isOkToLaunch() {
-        if (isInPlay == false && Input.GetButtonDown("Fire1"))
+        if (isInPlay == false)
             return true;
         return false;
     }
@@ -30,5 +46,17 @@ public class Ball : MonoBehaviour
         isInPlay = true;
         transform.parent = null;
         physics.isKinematic = false;
+        physics.AddForce(startSpeed*paddleTransform.up);
+    }
+
+    private void LoadBallOntoPaddle() {
+        isInPlay = false;
+        transform.parent = paddleTransform;
+        transform.localPosition = new Vector3(0f, 0.5f, 0f);
+        physics.isKinematic = true;
+    }
+
+    public void OnBallLost() {
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
     }
 }

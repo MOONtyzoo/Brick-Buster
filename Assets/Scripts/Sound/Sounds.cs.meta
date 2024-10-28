@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: bcc50dd83fa08d44f8bb48706b58c485
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soundEffectPrefab: {fileID: 1352369194884224369, guid: 18011fbecfad5de4ea980907ccf24970, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
