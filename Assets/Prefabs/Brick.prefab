@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06eb1f55669f6ca49a0ebac20bb3a485, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d09046400c95324dbcfe0a7a0b06291, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +106,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.47, y: 0.14, z: 0.2}
+  m_Size: {x: 1.37, y: 0.35, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4405875199844763263
 MonoBehaviour:

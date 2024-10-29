@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
     private Rigidbody physics;
 
     private bool isInPlay;
-    [SerializeField] private float startSpeed = 100;
+    private float startSpeed = 300;
 
     private void Awake() {
         physics = GetComponent<Rigidbody>();
@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour
     private void LoadBallOntoPaddle() {
         isInPlay = false;
         transform.parent = paddleTransform;
-        transform.localPosition = new Vector3(0f, 0.2f, 0f);
+        transform.localPosition = new Vector3(0f, 0.5f, 0f);
         physics.isKinematic = true;
     }
 
