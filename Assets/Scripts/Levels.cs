@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Levels : MonoBehaviour
 {
+    [SerializeField] private int startLevel = 0;
     [SerializeField] private List<GameObject> levelPrefabs;
     [SerializeField] private Readouts readouts;
 
     private int currentLevel = 0;
     private GameObject levelGameObject;
+
+    public void LoadStartLevel() {
+        LoadLevel(startLevel);
+    }
 
     public void GoToNextLevel() {
         LoadLevel(currentLevel+1);
@@ -31,11 +36,11 @@ public class Levels : MonoBehaviour
     }
 
     public bool IsLastLevel() {
-        return (currentLevel == levelPrefabs.Count-1);
+        return currentLevel == levelPrefabs.Count-1;
     }
 
     public bool IsLevelCompleted() {
         int bricksRemaining = GameObject.FindGameObjectsWithTag("Brick").Where(brick => brick.activeInHierarchy).Count();
-        return (bricksRemaining == 0);
+        return bricksRemaining == 0;
     }
 }

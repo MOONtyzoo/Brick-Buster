@@ -27,6 +27,7 @@ public class Sounds : MonoBehaviour
 
     public void PlaySoundEffect(AudioClip audioClip, Transform spawnTransform, float volume=1f) {
         AudioSource soundEffect = Instantiate(soundEffectPrefab, spawnTransform.position, Quaternion.identity);
+        soundEffect.transform.SetParent(gameObject.transform);
 
         soundEffect.clip = audioClip;
         soundEffect.volume = volume;

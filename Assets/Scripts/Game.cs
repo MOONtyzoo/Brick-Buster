@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
 
     private void Start() {
         Reset();
-        levels.LoadLevel(0);
+        levels.LoadStartLevel();
         Sounds.Instance.PlaySoundEffect(gameStartSound, transform);
     }
 

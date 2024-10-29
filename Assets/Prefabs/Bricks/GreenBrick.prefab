@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4405875199844763263}
   - component: {fileID: 2336891363941295263}
   m_Layer: 0
-  m_Name: Brick
+  m_Name: GreenBrick
   m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d09046400c95324dbcfe0a7a0b06291, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9edef0133e2550441837d28f1b1db7d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 7406733027450359192, guid: 78313744258b2c046ac6c57d0cf29f3a, type: 3}
+  particleColor: {r: 0.18039216, g: 0.92549026, b: 0.36862746, a: 1}
+  brickToSpawnOnDeath: {fileID: 4405875199844763263, guid: d870b7c0ad862044abf23d2a103eb2c6, type: 3}
 --- !u!114 &2336891363941295263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ab92e786c5c704b8991c272281fffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: d4c1ea7a3bbd6bf48a607e20884c9f93, type: 3}
+  soundEffect: {fileID: 8300000, guid: 9e359548b47adac4fbbfad324bf274d5, type: 3}
