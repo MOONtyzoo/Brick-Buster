@@ -41,10 +41,8 @@ public class Game : MonoBehaviour
         UpdateBallsRemaining(3);
     }
 
-    public void OnBrickBusted(Vector3 brickPosition) {
-        UpdateScore(score + 10);
+    public void OnBrickBusted() {
         CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
-        Instantiate(scoreFloaterPrefab, brickPosition, Quaternion.identity);
         if (levels.IsLevelCompleted())
             OnLevelCompleted();
     }
@@ -98,6 +96,11 @@ public class Game : MonoBehaviour
     private void UpdateBallsRemaining(int val) {
         ballsRemaining = val;
         readouts.ShowBallsRemaining(ballsRemaining);
+    }
+
+    public void AddScore(int val, Vector3 floaterPos) {
+        UpdateScore(score + val);
+        Instantiate(scoreFloaterPrefab, floaterPos, Quaternion.identity);
     }
 
     private void UpdateScore(int val) {

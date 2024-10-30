@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
@@ -10,7 +10,16 @@ public class Brick : MonoBehaviour
 
     [SerializeField] private Brick brickToSpawnOnDeath;
 
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider boxCollider;
+
     private bool isInvulnerable = true;
+    private bool isDestroyed = false;
+
+    void Awake() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     public void Start() {
         StartCoroutine(invulnerabilityDebounce());
@@ -26,18 +35,11 @@ public class Brick : MonoBehaviour
     }
 
     public void Bust() {
-        if (isInvulnerable)
+        if (isInvulnerable || isDestroyed)
             return;
         
-        SpawnHitParticles();
         ReplaceWithNextBrick();
-        DestroyBrick();
-    }
-
-    private void SpawnHitParticles() {
-        ParticleSystem particles = Instantiate(particlePrefab, transform.position, Quaternion.identity);
-        ParticleSystem.MainModule particleSettings = particles.main;
-        particleSettings.startColor = particleColor;
+        PlayDestroyEffects();
     }
 
     private void ReplaceWithNextBrick() {
@@ -47,9 +49,34 @@ public class Brick : MonoBehaviour
         }
     }
 
+    private void PlayDestroyEffects() {
+        SpawnHitParticles();
+        Game.Instance.AddScore(10, transform.position);
+        PlayDestroyAnimation();
+    }
+
+    private void SpawnHitParticles() {
+        ParticleSystem particles = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        ParticleSystem.MainModule particleSettings = particles.main;
+        particleSettings.startColor = particleColor;
+    }
+
+    private void PlayDestroyAnimation() {
+        isDestroyed = true;
+        boxCollider.enabled = false;
+
+        Tween shakeTween = transform.DOPunchScale(0.38f*Vector3.one, 0.3f, 50, 1);
+        Tween fadeTween = spriteRenderer.DOColor(Color.clear, 0.15f);
+
+        Sequence animationSequence = DOTween.Sequence();
+        animationSequence.Append(shakeTween);
+        animationSequence.Insert(0.15f, fadeTween);
+        animationSequence.OnComplete(DestroyBrick);
+    }
+
     private void DestroyBrick() {
         gameObject.SetActive(false);
         Destroy(gameObject);
-        Game.Instance.OnBrickBusted(transform.position);
+        Game.Instance.OnBrickBusted();
     }
 }

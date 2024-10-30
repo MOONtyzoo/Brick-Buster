@@ -1,20 +1,39 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Paddle : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer constrainingSpriteRenderer;
+
+    [SerializeField] private GameObject paddle;
 
     public float moveSpeed;
 
     public float maximumTurnAngle = 60;
     private float currentTurnAngle = 0;
 
-    private void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Ball") {
+            PlayBallHitAnimation();
+        }
+    }
+
+    private void PlayBallHitAnimation() {
+        Transform paddleTransform = paddle.transform;
+
+        Sequence scaleSequence = DOTween.Sequence();
+        scaleSequence.Append(paddleTransform.DOScale(0.9f*Vector3.one, 0.03f).SetEase(Ease.OutSine));
+        scaleSequence.Append(paddleTransform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine));
+
+        // Sequence localMoveSequence = DOTween.Sequence();
+        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(-0.1f, 0.02f).SetEase(Ease.OutSine));
+        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(0.03f, 0.05f).SetEase(Ease.InOutSine));
+        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(0f, 0.07f).SetEase(Ease.InSine));
+
+        Sequence animationSequence = DOTween.Sequence();
+        animationSequence.Append(scaleSequence);
+        animationSequence.Insert(0f, paddleTransform.DOPunchPosition(0.18f*Vector3.down, 0.12f, 10, 15));
     }
 
     private void Update() {
@@ -48,7 +67,7 @@ public class Paddle : MonoBehaviour
     }
 
     private void ConstrainToScreen() {
-        transform.position = SpriteTools.ConstrainSpriteToScreen(spriteRenderer);
+        transform.position = SpriteTools.ConstrainSpriteToScreen(constrainingSpriteRenderer);
     }
 
     public void Disable() {

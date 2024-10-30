@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -15,10 +16,18 @@ public class Ball : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision) {
+        PlayBounceAnimation();
         if (collision.gameObject.tag == "Brick") {
             Brick brick = collision.gameObject.GetComponent<Brick>();
             brick.Bust();
         }
+    }
+
+    private void PlayBounceAnimation() {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOScale(1.2f*Vector3.one, 0.05f).SetEase(Ease.OutSine));
+        sequence.Append(transform.DOScale(0.9f*Vector3.one, 0.1f).SetEase(Ease.InOutBounce));
+        sequence.Append(transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBounce));
     }
 
     private void Update() {
