@@ -43,6 +43,7 @@ public class Game : MonoBehaviour
 
     public void OnBrickBusted(Vector3 brickPosition) {
         UpdateScore(score + 10);
+        CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
         Instantiate(scoreFloaterPrefab, brickPosition, Quaternion.identity);
         if (levels.IsLevelCompleted())
             OnLevelCompleted();
