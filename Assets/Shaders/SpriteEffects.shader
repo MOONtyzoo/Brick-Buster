@@ -1,7 +1,7 @@
 /*
     https://www.youtube.com/watch?v=kiSKb54cogo
 
-    Most of the code is from this shader tutorial
+    Code for hue shifting, saturation, and brightness come from this tutorial video
 */
 
 Shader "Unlit/SpriteEffects"
@@ -10,8 +10,8 @@ Shader "Unlit/SpriteEffects"
     {
         _MainTex ("Texture", 2D) = "white" {}
 
-        _FillColor ("Fill Color", Color) = (1, 1, 1, 1)
-        _FillAmount ("Fill Amount", Range(0.0, 1.0)) = 0
+        _TintColor ("Tint Color", Color) = (1, 1, 1, 1)
+        _TintAmount ("Tint Amount", Range(0.0, 1.0)) = 0
         _HueShift ("Hue Shift", Range(0, 6.28318531)) = 0
         _Saturation ("Saturation", Range(0, 5)) = 1
         _Brightness ("Brightness", Range(-1, 1)) = 0
@@ -65,8 +65,8 @@ Shader "Unlit/SpriteEffects"
                 Fragment Shader
             */
 
-            float4 _FillColor;
-            float _FillAmount;
+            float4 _TintColor;
+            float _TintAmount;
             
             float _HueShift;
             float _Saturation;
@@ -109,16 +109,16 @@ Shader "Unlit/SpriteEffects"
                 return shiftedRGB;
             }
 
-            float3 ApplyFillColor(float3 mainColor, float3 fillColor, float fillAmount) {
-                fillAmount = clamp(fillAmount, 0.0, 1.0);
-                return mainColor*(1.0-fillAmount) + fillColor*(fillAmount);
+            float3 ApplyTintColor(float3 mainColor, float3 tintColor, float tintAmount) {
+                tintAmount = clamp(tintAmount, 0.0, 1.0);
+                return mainColor*(1.0-tintAmount) + tintColor*(tintAmount);
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.rgb = ApplyColorEffects(col.rgb, _HueShift, _Saturation, _Brightness);
-                col.rgb = ApplyFillColor(col.rgb, _FillColor.rgb, _FillAmount);
+                col.rgb = ApplyTintColor(col.rgb, _TintColor.rgb, _TintAmount);
                 return col;
             }
             ENDCG

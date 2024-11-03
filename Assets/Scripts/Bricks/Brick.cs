@@ -51,6 +51,7 @@ public class Brick : MonoBehaviour
 
     private void PlayDestroyEffects() {
         SpawnHitParticles();
+        CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
         Game.Instance.AddScore(10, transform.position);
         PlayDestroyAnimation();
     }

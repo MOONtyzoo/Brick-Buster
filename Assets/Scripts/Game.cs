@@ -42,7 +42,6 @@ public class Game : MonoBehaviour
     }
 
     public void OnBrickBusted() {
-        CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
         if (levels.IsLevelCompleted())
             OnLevelCompleted();
     }

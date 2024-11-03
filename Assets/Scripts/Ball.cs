@@ -5,6 +5,7 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Transform paddleTransform;
     [SerializeField] private ParticleSystem particlePrefab;
+    [SerializeField] private RingWave deathWaveEffect;
 
     private Rigidbody physics;
 
@@ -67,5 +68,6 @@ public class Ball : MonoBehaviour
 
     public void OnBallLost() {
         Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        Instantiate(deathWaveEffect, transform.position, Quaternion.identity);
     }
 }
