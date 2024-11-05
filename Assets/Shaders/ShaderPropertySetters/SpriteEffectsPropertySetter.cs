@@ -52,6 +52,12 @@ public class SpriteEffectsPropertySetter : MonoBehaviour
 
     void Awake() {
         renderer = GetComponent<Renderer>();
+        if (propertyBlock == null) {
+            propertyBlock = new MaterialPropertyBlock();
+        }
+        if (renderer.HasPropertyBlock()) {
+            renderer.GetPropertyBlock(propertyBlock);
+        }
     }
 
     public void SetTintColor(Color newTintColor) {

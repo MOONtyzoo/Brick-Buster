@@ -14,6 +14,7 @@ public class Brick : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
+    private SpriteEffectsPropertySetter spriteEffectsPropertySetter;
 
     private bool isInvulnerable = true;
     private bool isDestroyed = false;
@@ -21,6 +22,7 @@ public class Brick : MonoBehaviour
     void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider>();
+        spriteEffectsPropertySetter = GetComponent<SpriteEffectsPropertySetter>();
     }
 
     public void Start() {
@@ -46,7 +48,7 @@ public class Brick : MonoBehaviour
 
     private void ReplaceWithNextBrick() {
         if (brickToSpawnOnDeath != null) {
-            Brick nextBrick = Instantiate(brickToSpawnOnDeath, transform.position, Quaternion.identity);
+            Brick nextBrick = Instantiate(brickToSpawnOnDeath, transform.position + 0.01f*Vector3.forward, Quaternion.identity);
             nextBrick.transform.SetParent(gameObject.transform.parent);
         }
     }
@@ -68,12 +70,15 @@ public class Brick : MonoBehaviour
         isDestroyed = true;
         boxCollider.enabled = false;
 
-        Tween shakeTween = transform.DOPunchScale(0.38f*Vector3.one, 0.3f, 50, 1);
-        Tween fadeTween = spriteRenderer.DOColor(Color.clear, 0.15f);
-
+        Tween shakeTween = transform.DOPunchScale(0.38f*Vector3.one, 0.3f, 50, 0.3f);
+        
+        spriteEffectsPropertySetter.SetTintColor(Color.white);
+        spriteEffectsPropertySetter.SetTintAmount(1.0f);
+        Tween hitFlashTween = DOTween.To((x) => {spriteEffectsPropertySetter.SetTintAmount(x);}, 1.0f, 0.0f, 0.225f);
+        
         Sequence animationSequence = DOTween.Sequence();
         animationSequence.Append(shakeTween);
-        animationSequence.Insert(0.15f, fadeTween);
+        animationSequence.Insert(0.075f, hitFlashTween);
         animationSequence.OnComplete(DestroyBrick);
     }
 

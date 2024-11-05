@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7405317504480350443}
   - component: {fileID: 5729995043386048543}
   - component: {fileID: 2336891363941295263}
+  - component: {fileID: 7387369238536442603}
   m_Layer: 0
   m_Name: BombBrick
   m_TagString: Brick
@@ -55,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ddece9115d68a064abb23926134e8213, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +124,7 @@ MonoBehaviour:
   particlePrefab: {fileID: 7406733027450359192, guid: 78313744258b2c046ac6c57d0cf29f3a, type: 3}
   particleColor: {r: 0, g: 0, b: 0, a: 1}
   brickToSpawnOnDeath: {fileID: 0}
+  isImmuneToBall: 0
   isImmuneToExplosions: 1
   explosionRingWave: {fileID: 8914371286464175081, guid: c0d08b770e315904ba45156594b59d0b, type: 3}
   explosionHitbox: {fileID: 2544769687860427376, guid: bc3e644d01e1d3147b7ac7e1d2c4436a, type: 3}
@@ -141,3 +143,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 84165f85f4a9c0e40a4c610143e1a85d, type: 3}
+--- !u!114 &7387369238536442603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989014595345890893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a10df34b6fbf1c46af70c3d5c5a0804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TintColor: {r: 1, g: 1, b: 1, a: 1}
+  TintAmount: 0
+  HueShift: 0
+  Saturation: 1
+  Brightness: 0
