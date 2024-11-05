@@ -15,6 +15,7 @@ Shader "Unlit/SpriteEffects"
         [HideInInspector] _HueShift ("Hue Shift", Range(0, 6.28318531)) = 0
         [HideInInspector] _Saturation ("Saturation", Range(0, 5)) = 1
         [HideInInspector] _Brightness ("Brightness", Range(-1, 1)) = 0
+        [HideInInspector] _Opacity ("Opacity", Range(0.0, 1.0)) = 1.0
     }
     SubShader
     {
@@ -71,6 +72,7 @@ Shader "Unlit/SpriteEffects"
             float _HueShift;
             float _Saturation;
             float _Brightness;
+            float _Opacity;
 
             float3 ApplyColorEffects(float3 color, float hueShift, float saturation, float brightness)
             {
@@ -119,6 +121,7 @@ Shader "Unlit/SpriteEffects"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.rgb = ApplyColorEffects(col.rgb, _HueShift, _Saturation, _Brightness);
                 col.rgb = ApplyTintColor(col.rgb, _TintColor.rgb, _TintAmount);
+                col.a = min(col.a, _Opacity);
                 return col;
             }
             ENDCG

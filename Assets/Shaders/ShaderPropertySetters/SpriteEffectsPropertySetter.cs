@@ -25,12 +25,19 @@ public class SpriteEffectsPropertySetter : MonoBehaviour
     [Range(-1f, 1f)]
     [SerializeField] private float Brightness;
 
+    [Range(0f, 1f)]
+    [SerializeField] private float Opacity = 1f;
+
     new private Renderer renderer;
     //The material property block we pass to the GPU
     private MaterialPropertyBlock propertyBlock;
 
     // OnValidate is called in the editor after the component is edited
-    void OnValidate()
+    void OnValidate() {
+        UpdateShaderPropeties();
+    }
+
+    void UpdateShaderPropeties()
     {
         Renderer renderer = GetComponent<Renderer>();
 
@@ -46,18 +53,14 @@ public class SpriteEffectsPropertySetter : MonoBehaviour
         propertyBlock.SetFloat("_HueShift", HueShift);
         propertyBlock.SetFloat("_Saturation", Saturation);
         propertyBlock.SetFloat("_Brightness", Brightness);
+        propertyBlock.SetFloat("_Opacity", Opacity);
 
         renderer.SetPropertyBlock(propertyBlock);
     }
 
     void Awake() {
         renderer = GetComponent<Renderer>();
-        if (propertyBlock == null) {
-            propertyBlock = new MaterialPropertyBlock();
-        }
-        if (renderer.HasPropertyBlock()) {
-            renderer.GetPropertyBlock(propertyBlock);
-        }
+        UpdateShaderPropeties();
     }
 
     public void SetTintColor(Color newTintColor) {
@@ -96,6 +99,14 @@ public class SpriteEffectsPropertySetter : MonoBehaviour
         Brightness = newBrightness;
         if (propertyBlock != null) {
             propertyBlock.SetFloat("_Brightness", Brightness);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+    }
+
+    public void SetOpacity(float newOpacity) {
+        Opacity = newOpacity;
+        if (propertyBlock != null) {
+            propertyBlock.SetFloat("_Opacity", Opacity);
             renderer.SetPropertyBlock(propertyBlock);
         }
     }

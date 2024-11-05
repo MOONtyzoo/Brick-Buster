@@ -156,3 +156,4 @@ MonoBehaviour:
   HueShift: 0
   Saturation: 1
   Brightness: 0
+  Opacity: 1

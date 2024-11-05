@@ -72,13 +72,14 @@ public class Brick : MonoBehaviour
 
         Tween shakeTween = transform.DOPunchScale(0.38f*Vector3.one, 0.3f, 50, 0.3f);
         
-        spriteEffectsPropertySetter.SetTintColor(Color.white);
         spriteEffectsPropertySetter.SetTintAmount(1.0f);
         Tween hitFlashTween = DOTween.To((x) => {spriteEffectsPropertySetter.SetTintAmount(x);}, 1.0f, 0.0f, 0.225f);
+        Tween opacityTween = DOTween.To((x) => {spriteEffectsPropertySetter.SetOpacity(x);}, 1.0f, 0.0f, 0.225f);
         
         Sequence animationSequence = DOTween.Sequence();
         animationSequence.Append(shakeTween);
         animationSequence.Insert(0.075f, hitFlashTween);
+        animationSequence.Insert(0.075f, opacityTween);
         animationSequence.OnComplete(DestroyBrick);
     }
 
