@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7589345414462682343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.03, y: -4.95, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 36, y: 36, z: 36}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -97,3 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944c07c82222b5b4696690a9bde81a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uvScale: 36
+  timeScale: 1
+  lifetime: 1.75
+  ringNumber: 1
+  ringSpawnDelay: 0.1
+  ringStartSpeed: 15
+  ringDeceleration: 9
+  ringColor: {r: 0.9294118, g: 0.30588236, b: 0.34509805, a: 1}
+  fadeStartTime: 0.5
+  fadeDuration: 0.5
+  ringStartWidth: 0.4
+  ringThinningStartTime: 0.5
+  ringThinningDuration: 0.5
+  ringAngleSpread: 360

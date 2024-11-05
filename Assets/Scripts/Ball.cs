@@ -5,8 +5,8 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Transform paddleTransform;
     [SerializeField] private ParticleSystem particlePrefab;
-    [SerializeField] private RingWave deathWaveEffect;
-
+    [SerializeField] private RingWavePropertySetter deathWaveEffect;
+    
     private Rigidbody physics;
 
     private bool isInPlay;
@@ -20,7 +20,9 @@ public class Ball : MonoBehaviour
         PlayBounceAnimation();
         if (collision.gameObject.tag == "Brick") {
             Brick brick = collision.gameObject.GetComponent<Brick>();
-            brick.Bust();
+            if (!brick.isImmuneToBall) {
+                brick.Bust();
+            }
         }
     }
 

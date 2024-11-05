@@ -9,6 +9,8 @@ public class Brick : MonoBehaviour
     [SerializeField] private Color particleColor;
 
     [SerializeField] private Brick brickToSpawnOnDeath;
+    public bool isImmuneToBall = false;
+    public bool isImmuneToExplosions = false;
 
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
@@ -49,20 +51,20 @@ public class Brick : MonoBehaviour
         }
     }
 
-    private void PlayDestroyEffects() {
+    protected virtual void PlayDestroyEffects() {
         SpawnHitParticles();
         CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
         Game.Instance.AddScore(10, transform.position);
         PlayDestroyAnimation();
     }
 
-    private void SpawnHitParticles() {
+    protected void SpawnHitParticles() {
         ParticleSystem particles = Instantiate(particlePrefab, transform.position, Quaternion.identity);
         ParticleSystem.MainModule particleSettings = particles.main;
         particleSettings.startColor = particleColor;
     }
-
-    private void PlayDestroyAnimation() {
+    
+    protected virtual void PlayDestroyAnimation() {
         isDestroyed = true;
         boxCollider.enabled = false;
 

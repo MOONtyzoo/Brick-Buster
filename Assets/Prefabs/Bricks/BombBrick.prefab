@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7439811894643185778}
   - component: {fileID: 3936575893128638629}
   - component: {fileID: 7405317504480350443}
-  - component: {fileID: 4405875199844763263}
+  - component: {fileID: 5729995043386048543}
   - component: {fileID: 2336891363941295263}
   m_Layer: 0
-  m_Name: RedBrick
+  m_Name: BombBrick
   m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4b9ee00fd9435cb4bb341fef7153ee46, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b84214834d738f4783fa56cb102fa34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.37, y: 0.35, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4405875199844763263
+--- !u!114 &5729995043386048543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,12 +117,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4989014595345890893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 239d8d71bcce63e4890fb655eed95afd, type: 3}
+  m_Script: {fileID: 11500000, guid: fc7b04d065457e043bcc9dbd904d37e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 7406733027450359192, guid: 78313744258b2c046ac6c57d0cf29f3a, type: 3}
-  particleColor: {r: 0.9294118, g: 0.30588236, b: 0.34509805, a: 1}
+  particleColor: {r: 0, g: 0, b: 0, a: 1}
   brickToSpawnOnDeath: {fileID: 0}
+  isImmuneToExplosions: 1
+  explosionRingWave: {fileID: 8914371286464175081, guid: c0d08b770e315904ba45156594b59d0b, type: 3}
+  explosionHitbox: {fileID: 2544769687860427376, guid: bc3e644d01e1d3147b7ac7e1d2c4436a, type: 3}
+  explosionRadius: 2.2
+  explosionSpeed: 10
 --- !u!114 &2336891363941295263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,4 +140,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ab92e786c5c704b8991c272281fffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 5020b0430eccfc44194ae79cd5c0b03b, type: 3}
+  soundEffect: {fileID: 8300000, guid: 84165f85f4a9c0e40a4c610143e1a85d, type: 3}

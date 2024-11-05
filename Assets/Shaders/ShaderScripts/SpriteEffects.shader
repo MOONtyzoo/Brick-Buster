@@ -8,13 +8,13 @@ Shader "Unlit/SpriteEffects"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
 
-        _TintColor ("Tint Color", Color) = (1, 1, 1, 1)
-        _TintAmount ("Tint Amount", Range(0.0, 1.0)) = 0
-        _HueShift ("Hue Shift", Range(0, 6.28318531)) = 0
-        _Saturation ("Saturation", Range(0, 5)) = 1
-        _Brightness ("Brightness", Range(-1, 1)) = 0
+        [HideInInspector] _TintColor ("Tint Color", Color) = (1, 1, 1, 1)
+        [HideInInspector] _TintAmount ("Tint Amount", Range(0.0, 1.0)) = 0
+        [HideInInspector] _HueShift ("Hue Shift", Range(0, 6.28318531)) = 0
+        [HideInInspector] _Saturation ("Saturation", Range(0, 5)) = 1
+        [HideInInspector] _Brightness ("Brightness", Range(-1, 1)) = 0
     }
     SubShader
     {

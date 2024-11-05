@@ -2,27 +2,33 @@ Shader "Unlit/RingWave"
 {
     Properties
     {
-        _uvScale("UV Scale", Float) = 1.0
+        [HideInInspector] _uvScale("UV Scale", Float) = 1.0
 
-        [Header(Time Settings)][Space] _TimeScale ("Time Scale", Float) = 1.0
-        _Lifetime ("Lifetime", Float) = 99999.0
-        _StartTime ("Start Time", Float) = 0.0
+        [Header(Time Settings)][Space]
+        [HideInInspector] _TimeScale ("Time Scale", Float) = 1.0
+        [HideInInspector] _Lifetime ("Lifetime", Float) = 1.0
+        [HideInInspector] _StartTime ("Start Time", Float) = 0.0
 
-        [Header(Ring Settings)][Space] _RingNumber ("Number", Integer) = 1
-        _RingSpawnDelay ("Spawn Delay", Float) = 0.5
+        [Header(Ring Settings)][Space]
+        [HideInInspector] _RingNumber ("Number", Integer) = 1
+        [HideInInspector] _RingSpawnDelay ("Spawn Delay", Float) = 0.5
 
-        [Header(Speed Settings)][Space] _RingStartSpeed ("Start Speed", Float) = 1.0
-        _RingDeceleration ("Deceleration", Float) = 0.0
+        [Header(Speed Settings)][Space]
+        [HideInInspector] _RingStartSpeed ("Start Speed", Float) = 1.0
+        [HideInInspector] _RingDeceleration ("Deceleration", Float) = 0.0
 
-        [Header(Fade Settings)][Space] _RingColor ("Color", Color) = (0.0, 0.0, 0.0, 0.0)
-        _FadeStartTime ("Fade Start Time", float) = 99999.0
-        _FadeDuration ("Fade Duration", float) = 1.0
+        [Header(Fade Settings)][Space]
+        [HideInInspector] _RingColor ("Color", Color) = (0.0, 0.0, 0.0, 0.0)
+        [HideInInspector] _FadeStartTime ("Fade Start Time", float) = 99999.0
+        [HideInInspector] _FadeDuration ("Fade Duration", float) = 1.0
 
-        [Header(Width Settings)][Space] _RingStartWidth("Start Width", float) = 0.1
-        _RingThinningStartTime ("Thinning Start Time", float) = 99999.0
-        _RingThinningDuration ("Thinning Duration", float) = 1.0
+        [Header(Width Settings)][Space]
+        [HideInInspector] _RingStartWidth("Start Width", float) = 0.1
+        [HideInInspector] _RingThinningStartTime ("Thinning Start Time", float) = 99999.0
+        [HideInInspector] _RingThinningDuration ("Thinning Duration", float) = 1.0
         
-        [Header(Angle Settings)][Space] _RingAngleSpread ("Angle Spread", Range(0.0, 360.0)) = 360.0
+        [Header(Angle Settings)][Space]
+        [HideInInspector] _RingAngleSpread ("Angle Spread", Range(0.0, 360.0)) = 360.0
     }
     SubShader
     {
