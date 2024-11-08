@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallPhysics : MonoBehaviour
 {
-    private Rigidbody physics;
+    new private Rigidbody rigidbody;
 
     private bool isActive = false;
 
@@ -12,7 +12,7 @@ public class BallPhysics : MonoBehaviour
     private float speedAdjustmentRate = 8.0f;
 
     private void Awake() {
-        physics = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update() {
@@ -21,49 +21,55 @@ public class BallPhysics : MonoBehaviour
         }
     }
 
-    public void Redirect(Vector2 newDirection) {
-        SetBallDirection(newDirection);
-    }
-
-    public void AddSpeed(float extraSpeed) {
-        SetBallSpeed(GetBallSpeed() + extraSpeed);
-    }
-
-    public void AdjustToDesiredVelocity() {
-        float speed = GetBallSpeed();
+    private void AdjustToDesiredVelocity() {
+        float speed = GetSpeed();
         float speedDifference = Mathf.Abs(speed - desiredSpeed);
         
         float adjustmentDirection = (speed < desiredSpeed) ? 1f : -1f;
         float speedAdjustment = speedAdjustmentRate*adjustmentDirection*Time.deltaTime;
 
         if (Mathf.Abs(speedAdjustment) > speedDifference) {
-            SetBallSpeed(desiredSpeed);
+            SetSpeed(desiredSpeed);
         } else {
-            SetBallSpeed(GetBallSpeed() + speedAdjustment);
+            SetSpeed(GetSpeed() + speedAdjustment);
         }
     }
 
+    public void Activate() {
+        rigidbody.isKinematic = false;
+        isActive = true;
+    }
+
+    public void Deactivate() {
+        rigidbody.isKinematic = true;
+        isActive = false;
+    }
+
     public void SetVelocity(Vector2 newVelocity) {
-        physics.velocity = newVelocity;
+        rigidbody.velocity = newVelocity;
     }
 
-    public float GetBallSpeed() {
-        return physics.velocity.magnitude;
+    public float GetDesiredSpeed() {
+        return desiredSpeed;
     }
 
-    public void SetBallSpeed(float newSpeed) {
-        Vector2 velocityDirection = physics.velocity.normalized;
-
-        physics.velocity = newSpeed*velocityDirection;
+    public float GetSpeed() {
+        return rigidbody.velocity.magnitude;
     }
 
-    public Vector2 GetBallDirection() {
-        return physics.velocity.normalized;
+    public void SetSpeed(float newSpeed) {
+        Vector2 velocityDirection = rigidbody.velocity.normalized;
+
+        rigidbody.velocity = newSpeed*velocityDirection;
     }
 
-    public void SetBallDirection(Vector2 newDirection) {
-        float speed = physics.velocity.magnitude;
+    public Vector2 GetDirection() {
+        return rigidbody.velocity.normalized;
+    }
 
-        physics.velocity = speed*newDirection;
+    public void SetDirection(Vector2 newDirection) {
+        float speed = rigidbody.velocity.magnitude;
+
+        rigidbody.velocity = speed*newDirection;
     }
 }

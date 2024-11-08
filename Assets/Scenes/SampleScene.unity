@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 242595557}
   - component: {fileID: 242595556}
   - component: {fileID: 242595560}
+  - component: {fileID: 242595561}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -356,6 +357,19 @@ MonoBehaviour:
   paddleTransform: {fileID: 479602507}
   particlePrefab: {fileID: 7406733027450359192, guid: 6bf1549ffe5defb459b265cbf5e96173, type: 3}
   deathWaveEffect: {fileID: 2581285447932035454, guid: f4f5a13666ad0194c95c00c8519a9d54, type: 3}
+  ballPhysics: {fileID: 0}
+--- !u!114 &242595561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242595555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49704ff558f15ec42bdf3daa55542e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &257458855
 GameObject:
   m_ObjectHideFlags: 0

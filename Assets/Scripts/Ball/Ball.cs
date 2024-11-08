@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -9,14 +10,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private ParticleSystem particlePrefab;
     [SerializeField] private RingWavePropertySetter deathWaveEffect;
     
-    private Rigidbody physics;
+    public BallPhysics ballPhysics;
 
     private bool isInPlay;
-    private float desiredSpeed = 5.0f;
-    private float speedAdjustmentRate = 8.0f;
 
     private void Awake() {
-        physics = GetComponent<Rigidbody>();
+        ballPhysics = GetComponent<BallPhysics>();
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -28,7 +27,7 @@ public class Ball : MonoBehaviour
             }
         }
     }
-
+    
     private void PlayBounceAnimation() {
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(1.2f*Vector3.one, 0.05f).SetEase(Ease.OutSine));
@@ -39,10 +38,6 @@ public class Ball : MonoBehaviour
     private void Update() {
         if (isOkToLaunch() && Input.GetButtonDown("Fire1")) {
             Launch();
-        }
-
-        if (isInPlay) {
-            AdjustToDesiredVelocity();
         }
     }
 
@@ -55,8 +50,8 @@ public class Ball : MonoBehaviour
     private void Launch() {
         isInPlay = true;
         transform.parent = null;
-        physics.isKinematic = false;
-        physics.velocity = desiredSpeed*paddleTransform.up;
+        ballPhysics.Activate();
+        ballPhysics.SetVelocity(ballPhysics.GetDesiredSpeed()*paddleTransform.up);
     }
 
     public void Disable() {
@@ -72,51 +67,15 @@ public class Ball : MonoBehaviour
         isInPlay = false;
         transform.parent = paddleTransform;
         transform.localPosition = new Vector3(0f, 0.5f, 0f);
-        physics.isKinematic = true;
+        ballPhysics.Deactivate();
     }
 
     public void Redirect(Vector2 newDirection) {
-        SetBallDirection(newDirection);
+        ballPhysics.SetDirection(newDirection);
     }
 
     public void AddSpeed(float extraSpeed) {
-        SetBallSpeed(GetBallSpeed() + extraSpeed);
-    }
-
-    public void AdjustToDesiredVelocity() {
-        float speed = GetBallSpeed();
-        float speedDifference = Math.Abs(speed - desiredSpeed);
-        
-        float adjustmentDirection = (speed < desiredSpeed) ? 1f : -1f;
-        float speedAdjustment = speedAdjustmentRate*adjustmentDirection*Time.deltaTime;
-
-        if (Mathf.Abs(speedAdjustment) > speedDifference) {
-            SetBallSpeed(desiredSpeed);
-        } else {
-            SetBallSpeed(GetBallSpeed() + speedAdjustment);
-        }
-
-        print(GetBallSpeed());
-    }
-
-    public float GetBallSpeed() {
-        return physics.velocity.magnitude;
-    }
-
-    public void SetBallSpeed(float newSpeed) {
-        Vector2 velocityDirection = physics.velocity.normalized;
-
-        physics.velocity = newSpeed*velocityDirection;
-    }
-
-    public Vector2 GetBallDirection() {
-        return physics.velocity.normalized;
-    }
-
-    public void SetBallDirection(Vector2 newDirection) {
-        float speed = physics.velocity.magnitude;
-
-        physics.velocity = speed*newDirection;
+        ballPhysics.SetSpeed(ballPhysics.GetSpeed() + extraSpeed);
     }
 
     public void OnBallLost() {
