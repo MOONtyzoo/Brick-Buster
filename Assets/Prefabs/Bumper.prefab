@@ -183,4 +183,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ab92e786c5c704b8991c272281fffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 5f9323a41dbb3f54ebb1a9bd32ce1d0a, type: 3}
+  soundEffect: {fileID: 8300000, guid: 2ebed033cfcd2734db14725a5b006e80, type: 3}
