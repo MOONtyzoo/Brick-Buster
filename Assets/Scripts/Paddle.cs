@@ -23,17 +23,12 @@ public class Paddle : MonoBehaviour
         Transform paddleTransform = paddle.transform;
 
         Sequence scaleSequence = DOTween.Sequence();
-        scaleSequence.Append(paddleTransform.DOScale(0.9f*Vector3.one, 0.03f).SetEase(Ease.OutSine));
+        scaleSequence.Append(paddleTransform.DOScale(0.87f*Vector3.one, 0.03f).SetEase(Ease.OutSine));
         scaleSequence.Append(paddleTransform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutSine));
-
-        // Sequence localMoveSequence = DOTween.Sequence();
-        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(-0.1f, 0.02f).SetEase(Ease.OutSine));
-        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(0.03f, 0.05f).SetEase(Ease.InOutSine));
-        // localMoveSequence.Append(paddleTransform.DOLocalMoveY(0f, 0.07f).SetEase(Ease.InSine));
 
         Sequence animationSequence = DOTween.Sequence();
         animationSequence.Append(scaleSequence);
-        animationSequence.Insert(0f, paddleTransform.DOPunchPosition(0.18f*Vector3.down, 0.12f, 10, 15));
+        animationSequence.Insert(0f, paddleTransform.DOPunchPosition(0.20f*Vector3.up, 0.45f, 8, 25));
     }
 
     private void Update() {

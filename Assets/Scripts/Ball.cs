@@ -39,15 +39,6 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public void Disable() {
-        gameObject.SetActive(false);
-    }
-
-    public void Reset() {
-        gameObject.SetActive(true);
-        LoadBallOntoPaddle();
-    }
-
     private bool isOkToLaunch() {
         if (isInPlay == false)
             return true;
@@ -61,11 +52,24 @@ public class Ball : MonoBehaviour
         physics.AddForce(startSpeed*paddleTransform.up);
     }
 
+    public void Disable() {
+        gameObject.SetActive(false);
+    }
+
+    public void Reset() {
+        gameObject.SetActive(true);
+        LoadBallOntoPaddle();
+    }
+
     private void LoadBallOntoPaddle() {
         isInPlay = false;
         transform.parent = paddleTransform;
         transform.localPosition = new Vector3(0f, 0.5f, 0f);
         physics.isKinematic = true;
+    }
+
+    public void Redirect(Vector2 direction) {
+        physics.velocity = physics.velocity.magnitude*direction.normalized;
     }
 
     public void OnBallLost() {

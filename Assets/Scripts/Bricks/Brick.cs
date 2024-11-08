@@ -12,8 +12,8 @@ public class Brick : MonoBehaviour
     public bool isImmuneToBall = false;
     public bool isImmuneToExplosions = false;
 
-    private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
+    private SpriteRenderer spriteRenderer;
     private SpriteEffectsPropertySetter spriteEffectsPropertySetter;
 
     private bool isInvulnerable = true;
