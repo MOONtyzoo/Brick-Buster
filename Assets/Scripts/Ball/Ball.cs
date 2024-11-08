@@ -1,5 +1,7 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Ball : MonoBehaviour
 {
@@ -10,7 +12,8 @@ public class Ball : MonoBehaviour
     private Rigidbody physics;
 
     private bool isInPlay;
-    private float startSpeed = 300;
+    private float desiredSpeed = 5.0f;
+    private float speedAdjustmentRate = 8.0f;
 
     private void Awake() {
         physics = GetComponent<Rigidbody>();
@@ -37,6 +40,10 @@ public class Ball : MonoBehaviour
         if (isOkToLaunch() && Input.GetButtonDown("Fire1")) {
             Launch();
         }
+
+        if (isInPlay) {
+            AdjustToDesiredVelocity();
+        }
     }
 
     private bool isOkToLaunch() {
@@ -49,7 +56,7 @@ public class Ball : MonoBehaviour
         isInPlay = true;
         transform.parent = null;
         physics.isKinematic = false;
-        physics.AddForce(startSpeed*paddleTransform.up);
+        physics.velocity = desiredSpeed*paddleTransform.up;
     }
 
     public void Disable() {
@@ -68,8 +75,48 @@ public class Ball : MonoBehaviour
         physics.isKinematic = true;
     }
 
-    public void Redirect(Vector2 direction) {
-        physics.velocity = physics.velocity.magnitude*direction.normalized;
+    public void Redirect(Vector2 newDirection) {
+        SetBallDirection(newDirection);
+    }
+
+    public void AddSpeed(float extraSpeed) {
+        SetBallSpeed(GetBallSpeed() + extraSpeed);
+    }
+
+    public void AdjustToDesiredVelocity() {
+        float speed = GetBallSpeed();
+        float speedDifference = Math.Abs(speed - desiredSpeed);
+        
+        float adjustmentDirection = (speed < desiredSpeed) ? 1f : -1f;
+        float speedAdjustment = speedAdjustmentRate*adjustmentDirection*Time.deltaTime;
+
+        if (Mathf.Abs(speedAdjustment) > speedDifference) {
+            SetBallSpeed(desiredSpeed);
+        } else {
+            SetBallSpeed(GetBallSpeed() + speedAdjustment);
+        }
+
+        print(GetBallSpeed());
+    }
+
+    public float GetBallSpeed() {
+        return physics.velocity.magnitude;
+    }
+
+    public void SetBallSpeed(float newSpeed) {
+        Vector2 velocityDirection = physics.velocity.normalized;
+
+        physics.velocity = newSpeed*velocityDirection;
+    }
+
+    public Vector2 GetBallDirection() {
+        return physics.velocity.normalized;
+    }
+
+    public void SetBallDirection(Vector2 newDirection) {
+        float speed = physics.velocity.magnitude;
+
+        physics.velocity = speed*newDirection;
     }
 
     public void OnBallLost() {

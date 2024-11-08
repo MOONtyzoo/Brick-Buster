@@ -18,6 +18,7 @@ public class Bumper : MonoBehaviour
             Ball ball = collision.gameObject.GetComponent<Ball>();
             PlayBounceAnimation();
             ball.Redirect(ball.transform.position - transform.position);
+            ball.AddSpeed(4.0f);
         }
     }
 
