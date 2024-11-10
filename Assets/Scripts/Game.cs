@@ -100,7 +100,7 @@ public class Game : MonoBehaviour
         readouts.ShowBallsRemaining(ballsRemaining);
     }
 
-    public void AddScore(int val, Vector3 floaterPos) {
+    public void AddScoreWithFloater(int val, Vector3 floaterPos) {
         UpdateScore(score + val);
         Instantiate(scoreFloaterPrefab, floaterPos, Quaternion.identity);
     }
