@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     [SerializeField] private ScoreFloater scoreFloaterPrefab;
     [SerializeField] private Paddle paddle;
     [SerializeField] private Ball ball;
+    [SerializeField] private BallLauncher ballLauncher;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip gameStartSound;
@@ -36,9 +37,10 @@ public class Game : MonoBehaviour
     }
 
     private void Reset() {
+        score = 0;
+        ballsRemaining = 3;
         readouts.Reset(ballsRemaining);
-        UpdateScore(0);
-        UpdateBallsRemaining(3);
+        ResetAfterBallLoss();
     }
 
     public void OnBrickBusted() {
@@ -79,6 +81,7 @@ public class Game : MonoBehaviour
     private void ResetAfterBallLoss() {
         paddle.Reset();
         ball.Reset();
+        ballLauncher.LoadBall();
     }
 
     private void WinGame() {

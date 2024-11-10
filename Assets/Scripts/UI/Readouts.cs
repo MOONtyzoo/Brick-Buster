@@ -6,24 +6,24 @@ using UnityEngine.UI;
 
 public class Readouts : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI ballsRemainingText;
+    [SerializeField] private DynamicNumberDisplay scoreDisplay;
+    [SerializeField] private DynamicNumberDisplay ballsRemainingDisplay;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI gameResultText;
 
     public void Reset(int startingBallCount) {
-        ShowScore(0);
-        ShowBallsRemaining(startingBallCount);
+        scoreDisplay.Reset(0);
+        ballsRemainingDisplay.Reset(startingBallCount);
         ShowLevel(1);
         HideGameResult();
     }
 
     public void ShowScore(int score) {
-        scoreText.text = $"Score: {score}";
+        scoreDisplay.SetValue(score);
     }
 
     public void ShowBallsRemaining(int ballsRemaining) {
-        ballsRemainingText.text = $"Balls Remaining: {ballsRemaining}";
+        ballsRemainingDisplay.SetValue(ballsRemaining);
     }
 
     public void ShowLevel(int level) {
