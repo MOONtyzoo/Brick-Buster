@@ -57,6 +57,7 @@ public class Brick : MonoBehaviour
         SpawnHitParticles();
         CinemachineShake.Instance.ShakeCamera(0.5f, 0.1f);
         Game.Instance.AddScoreWithFloater(10, transform.position);
+        Game.Instance.AddComboPoints(1);
         PlayDestroyAnimation();
     }
 

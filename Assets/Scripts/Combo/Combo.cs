@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class Combo : MonoBehaviour
 {
+    [SerializeField] private ComboDisplay comboDisplay;
+
     private static ComboState currentComboState;
     private static Dictionary<ComboStateType, ComboState> comboStates = new Dictionary<ComboStateType, ComboState>() {
         {ComboStateType.red,
         new ComboState(ComboStateType.red,
+            comboColor: new Color32(237, 78, 88, 255),
             pointMultiplier:1.0f,
             ballSpeed:5.0f,
             comboDecayRate: 0.5f
@@ -17,6 +20,7 @@ public class Combo : MonoBehaviour
 
         {ComboStateType.blue,
         new ComboState(ComboStateType.blue,
+            comboColor: new Color32(51, 135, 237, 255),
             pointMultiplier:1.5f,
             ballSpeed:6.0f,
             comboDecayRate: 1.0f
@@ -24,6 +28,7 @@ public class Combo : MonoBehaviour
 
         {ComboStateType.green,
         new ComboState(ComboStateType.green,
+            comboColor: new Color32(46, 236, 94, 255),
             pointMultiplier:2.0f,
             ballSpeed:6.5f,
             comboDecayRate: 1.2f
@@ -31,6 +36,7 @@ public class Combo : MonoBehaviour
 
         {ComboStateType.yellow,
         new ComboState(ComboStateType.yellow,
+            comboColor: new Color32(252, 243, 63, 255),
             pointMultiplier:2.5f,
             ballSpeed:7.0f,
             comboDecayRate: 1.5f
@@ -38,6 +44,7 @@ public class Combo : MonoBehaviour
 
         {ComboStateType.rainbow,
         new ComboState(ComboStateType.rainbow,
+            comboColor: new Color32(237, 78, 88, 255),
             pointMultiplier:4.0f,
             ballSpeed:7.5f,
             comboDecayRate: 2.0f
@@ -59,9 +66,10 @@ public class Combo : MonoBehaviour
         Initialize();
     }
 
-    public static void Initialize()
+    private void Initialize()
     {
         currentComboState = comboStates[ComboStateType.red];
+        TransitionToComboState(ComboStateType.red);
     }
 
     void Update() {
@@ -75,7 +83,7 @@ public class Combo : MonoBehaviour
     }
 
     private void DecayComboPoints() {
-        
+        SetComboPoints(comboPoints - Time.deltaTime);
     }
 
     public void AddComboPoints(float value) {
@@ -84,8 +92,8 @@ public class Combo : MonoBehaviour
 
     public void SetComboPoints(float newComboPoints) {
         comboPoints = comboPointRange.ClampToRange(newComboPoints);
-        print(comboPoints);
         CheckIfShouldUpdateComboState();
+        comboDisplay.SetBarProgress(GetProgressToNextState());
     }
 
     private void CheckIfShouldUpdateComboState()
@@ -97,10 +105,10 @@ public class Combo : MonoBehaviour
     }
 
     private void UpdateComboState() {
-        foreach (ComboState comboStateRange in comboStates.Values) {
-            NumberRange comboRange = comboStatePointRanges[comboStateRange.type];
-            if (comboRange.IsValueInsideRange(comboPoints)) {
-                TransitionToComboState(comboStateRange.type);
+        foreach (ComboState comboState in comboStates.Values) {
+            NumberRange comboStateRange = comboStatePointRanges[comboState.type];
+            if (comboStateRange.IsValueInsideRange(comboPoints)) {
+                TransitionToComboState(comboState.type);
             }
         }
     }
@@ -114,7 +122,24 @@ public class Combo : MonoBehaviour
             print("Transitioning from " + currentComboStateName + " to " + newComboStateName);
             currentComboState.Deactivate();
             newComboState.Activate();
+
             currentComboState = newComboState;
+            OnComboStateChanged();
         }
+    }
+
+    private void OnComboStateChanged()
+    {
+        comboDisplay.SetMultiplier(currentComboState.pointMultiplier);
+        comboDisplay.SetColor(currentComboState.comboColor);
+    }
+
+    private float GetProgressToNextState() {
+        NumberRange comboStateRange = comboStatePointRanges[currentComboState.type];
+        return Mathf.Clamp(comboStateRange.ReverseLerp(comboPoints), 0.0f, 1.0f);
+    }
+
+    public float GetComboMultiplier() {
+        return currentComboState.pointMultiplier;
     }
 }

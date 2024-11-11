@@ -10,16 +10,18 @@ public class ComboState
     public float pointMultiplier { get; private set; }
     public float ballSpeed { get; private set; }
     public float comboDecayRate { get; private set; }
+    public Color32 comboColor { get; private set; }
 
     public bool isActive { get; private set; }
 
     private List<Action> activationCallList = new List<Action>();
     private List<Action> deactivationCallList = new List<Action>();
 
-    public ComboState(ComboStateType type, float pointMultiplier, float ballSpeed, float comboDecayRate)
+    public ComboState(ComboStateType type, float pointMultiplier, float ballSpeed, float comboDecayRate, Color32 comboColor)
     {
         isActive = false;
         this.type = type;
+        this.comboColor = comboColor;
         this.pointMultiplier = pointMultiplier;
         this.ballSpeed = ballSpeed;
         this.comboDecayRate = comboDecayRate;

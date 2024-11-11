@@ -15,8 +15,8 @@ public class Game : MonoBehaviour
     [SerializeField] private AudioClip gameOverSound;
     [SerializeField] private AudioClip ballLostSound;
 
-
     private Levels levels;
+    private Combo combo;
 
     private int score;
     private int ballsRemaining;
@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
         if (Instance == null) {
             Instance = this;
             levels = GetComponent<Levels>();
+            combo = GetComponent<Combo>();
         } else {
             Destroy(gameObject);
         }
@@ -108,5 +109,9 @@ public class Game : MonoBehaviour
     private void UpdateScore(int val) {
         score = val;
         readouts.ShowScore(score);
+    }
+
+    public void AddComboPoints(int val) {
+        combo.AddComboPoints(val);
     }
 }
