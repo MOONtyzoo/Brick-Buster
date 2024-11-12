@@ -20,6 +20,10 @@ public class NumberRange
         return Mathf.Clamp(value, minValue, maxValue);
     }
 
+    public float Lerp(float value) {
+        return (1f-value)*minValue + value*maxValue;
+    }
+
     public float ReverseLerp(float value) {
         float rangeSize = maxValue - minValue;
         float lerpValue = (value - minValue)/rangeSize;
@@ -32,6 +36,10 @@ public class NumberRange
     
     public bool IsValueOutsideRange(float value) {
         return value < minValue || value > maxValue;
+    }
+
+    public float GetSize() {
+        return maxValue - minValue;
     }
     
     public float GetRandomNumber() {

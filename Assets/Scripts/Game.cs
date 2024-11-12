@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
 
     public void LoseBall() {
         UpdateBallsRemaining(ballsRemaining-1);
+        combo.DecreaseComboState();
         ball.OnBallLost();
         DisableGameplay();
         CheckForGameOver();
@@ -102,8 +103,14 @@ public class Game : MonoBehaviour
     }
 
     public void AddScoreWithFloater(int val, Vector3 floaterPos) {
-        UpdateScore(score + val);
-        Instantiate(scoreFloaterPrefab, floaterPos, Quaternion.identity);
+        int scoreToAdd = (int)(combo.GetComboMultiplier()*val);
+        UpdateScore(score + scoreToAdd);
+        SpawnScoreFloater(scoreToAdd, floaterPos);
+    }
+
+    public void SpawnScoreFloater(int val, Vector3 floaterPos) {
+        ScoreFloater scoreFloater = Instantiate(scoreFloaterPrefab, floaterPos, Quaternion.identity);
+        scoreFloater.SetValue(val);
     }
 
     private void UpdateScore(int val) {

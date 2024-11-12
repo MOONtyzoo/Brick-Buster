@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d904fee8f7b7c84d866a830b647fd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumperWaveEffect: {fileID: 8914371286464175081, guid: c0d08b770e315904ba45156594b59d0b, type: 3}
 --- !u!114 &5526976821084914506
 MonoBehaviour:
   m_ObjectHideFlags: 0

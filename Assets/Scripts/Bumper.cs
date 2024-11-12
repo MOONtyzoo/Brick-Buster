@@ -7,6 +7,7 @@ public class Bumper : MonoBehaviour
 {
     private SpriteRenderer sprite;
     private SpriteEffectsPropertySetter spriteEffectsPropertySetter;
+    [SerializeField] private RingWavePropertySetter bumperWaveEffect;
 
     void Awake() {
         sprite = GetComponentInChildren<SpriteRenderer>();
@@ -16,10 +17,15 @@ public class Bumper : MonoBehaviour
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Ball") {
             Ball ball = collision.gameObject.GetComponent<Ball>();
-            PlayBounceAnimation();
-            ball.Redirect(ball.transform.position - transform.position);
-            ball.AddSpeed(4.0f);
+            BumpBall(ball);
         }
+    }
+
+    private void BumpBall(Ball ball) {
+        PlayBounceAnimation();
+        Instantiate(bumperWaveEffect, transform.position, Quaternion.identity);
+        ball.Redirect(ball.transform.position - transform.position);
+        ball.AddSpeed(4.0f);
     }
 
     private void PlayBounceAnimation() {

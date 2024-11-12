@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5729995043386048543}
   - component: {fileID: 2336891363941295263}
   - component: {fileID: 7387369238536442603}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BombBrick
   m_TagString: Brick
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   brickToSpawnOnDeath: {fileID: 0}
   isImmuneToBall: 0
   isImmuneToExplosions: 1
-  explosionRingWave: {fileID: 8914371286464175081, guid: c0d08b770e315904ba45156594b59d0b, type: 3}
+  explosionRingWave: {fileID: 8914371286464175081, guid: 07affc5258a7b9a44b7a15c083066bc7, type: 3}
   explosionHitbox: {fileID: 2544769687860427376, guid: bc3e644d01e1d3147b7ac7e1d2c4436a, type: 3}
   explosionRadius: 2.2
   explosionSpeed: 10

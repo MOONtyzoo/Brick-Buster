@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,10 @@ public class ComboDisplay : MonoBehaviour
     private TextMeshProUGUI textMesh;
     private float originalFontSize;
 
+    private ComboStateType comboState;
+
+    private float animationHueShift;
+
     [SerializeField] private RectTransform comboPointsBar;
     [SerializeField] private float comboPointsBarHeight;
 
@@ -24,6 +29,14 @@ public class ComboDisplay : MonoBehaviour
 
     void Update() {
         DecayTextScale();
+        if (comboState == ComboStateType.rainbow) {
+            animationHueShift = animationHueShift + 0.5f*Time.deltaTime;
+            if (animationHueShift >= 1.0f) {
+                animationHueShift -= 1.0f;
+            }
+            Color32 newColor = Color.HSVToRGB(animationHueShift, 1.0f, 1.0f);
+            SetColor(newColor);
+        }
     }
 
     public void Reset(int newValue) {
@@ -44,7 +57,12 @@ public class ComboDisplay : MonoBehaviour
         comboPointsBar.offsetMax = new Vector2(comboPointsBar.offsetMax.x, newOffsetMaxY);
     }
 
-    public void SetColor(Color32 color) {
+    public void SetComboState (ComboState comboState) {
+        this.comboState = comboState.type;
+        SetColor(comboState.comboColor);
+    }
+
+    public void SetColor (Color32 color) {
         textMesh.color = color;
         comboPointsBar.GetComponent<Image>().color = color;
     }

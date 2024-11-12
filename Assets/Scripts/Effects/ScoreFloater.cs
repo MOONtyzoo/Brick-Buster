@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreFloater : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private TextMeshPro textMesh;
 
     void Start()
     {
@@ -13,5 +15,9 @@ public class ScoreFloater : MonoBehaviour
 
     public void OnAnimationFinished() {
         Destroy(gameObject);   
+    }
+
+    public void SetValue(int val) {
+        textMesh.text = "+" + val;
     }
 }

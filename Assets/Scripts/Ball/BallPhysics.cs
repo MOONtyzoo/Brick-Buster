@@ -53,6 +53,10 @@ public class BallPhysics : MonoBehaviour
         return desiredSpeed;
     }
 
+    public void SetDesiredSpeed(float desiredSpeed) {
+        this.desiredSpeed = desiredSpeed;
+    }
+
     public float GetSpeed() {
         return rigidbody.velocity.magnitude;
     }

@@ -40,6 +40,7 @@ public class RingWavePropertySetter : MonoBehaviour
     [Range(0.0f, 360.0f)]
     [SerializeField] float ringAngleSpread = 360.0f;
 
+    new private Renderer renderer;
     //The material property block we pass to the GPU
     private MaterialPropertyBlock propertyBlock;
 
@@ -84,8 +85,18 @@ public class RingWavePropertySetter : MonoBehaviour
 
     void Awake()
     {
+        renderer = GetComponent<Renderer>();
+        
         startTime = Time.time;
         UpdateShaderProperties();
         Destroy(gameObject, lifetime);
+    }
+
+    public void SetRingColor(Color newRingColor) {
+        ringColor = newRingColor;
+        if (propertyBlock != null) {
+            propertyBlock.SetColor("_RingColor", ringColor);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
     }
 }
