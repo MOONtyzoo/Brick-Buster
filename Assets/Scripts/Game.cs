@@ -67,6 +67,8 @@ public class Game : MonoBehaviour
         if (!levels.IsLastLevel()) {
             levels.GoToNextLevel();
             ResetAfterBallLoss();
+            combo.ResetCombo();
+            UpdateBallsRemaining(3);
         } else {
             WinGame();
         }

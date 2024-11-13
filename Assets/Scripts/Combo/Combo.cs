@@ -86,12 +86,6 @@ public class Combo : MonoBehaviour
 
     void Update() {
         DecayComboPoints();
-        if (Input.GetKeyDown(KeyCode.E)) {
-            AddComboPoints(1f);
-        }
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            AddComboPoints(-1f);
-        }
     }
 
     private void DecayComboPoints() {
@@ -116,6 +110,10 @@ public class Combo : MonoBehaviour
             float newComboPoints = previousComboRange.Lerp(comboStateProgress);
             SetComboPoints(newComboPoints);
         }
+    }
+
+    public void ResetCombo() {
+        SetComboPoints(0);
     }
 
     public void SetComboPoints(float newComboPoints) {
