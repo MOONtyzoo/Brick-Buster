@@ -1,6 +1,8 @@
 Just like with Tic-Tac-Toe, this was initially a really simple project to recreate Brick Breaker,
 but I did extra and polished the project with my own art and effects to make it satisfying to play!
 
+Play it here: https://moontyzoo.itch.io/brick-buster
+
 ![Unity_kIYI05Ea8m](https://github.com/user-attachments/assets/27bb1976-fde7-4e9d-be9d-81521b130f57)
 
 
